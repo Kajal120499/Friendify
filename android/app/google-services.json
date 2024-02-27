@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "922913702682",
+    "project_id": "friendify-ffb73",
+    "storage_bucket": "friendify-ffb73.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:922913702682:android:fbcdf6862816bccd7a22a3",
+        "android_client_info": {
+          "package_name": "com.friendify"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDS9GzE02TFiGjl9i2WO7kd1zryquM17sA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

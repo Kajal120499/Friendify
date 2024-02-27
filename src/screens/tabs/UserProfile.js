@@ -6,11 +6,10 @@ import { Base_Url, user_by_id } from '../../utils/String'
 import { Theme_Color, white ,black,Theme_Color1} from '../../utils/Color'
 
 const User = () => {
-  const[logingetData,setDataGetData]=useState([])
   const[userData,setUserData]=useState(null)
   
   const[id,setid]=useState('')
-console.log("ID here",id)
+  //console.log("ID here",id)
   useEffect(()=>{
     getAsyncData()
     // profileApiCall()
@@ -20,8 +19,7 @@ console.log("ID here",id)
   const getAsyncData=async()=>{
        const getData=await AsyncStorage.getItem("data")
        const jsonConvert= JSON.parse(getData)
-       console.warn("AsyncData",jsonConvert._id)
-       setDataGetData(jsonConvert)
+      //  console.warn("AsyncData",jsonConvert._id)
        setid(jsonConvert._id)
        profileApiCall(jsonConvert._id)
   }
@@ -32,9 +30,8 @@ console.log("ID here",id)
     fetch(Base_Url+user_by_id+'/'+id)
     .then(res=>res.json())
     .then(json=>{
-      console.warn('ProfileData',json.data)
+      // console.warn('ProfileData',json.data)
       setUserData(json.data)
-      // getAsyncData()
     }).catch(error=>{console.log(error)})
   }
   return (
@@ -119,3 +116,4 @@ CountView:{
   alignItems:'center',
 }
 })
+

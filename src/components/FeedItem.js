@@ -5,7 +5,7 @@ import { Images } from '../utils/Images'
 import { black } from '../utils/Color'
 import { timeAgo } from './time'
 
-const FeedItem = ({data,list,index}) => {
+const FeedItem = ({data,list,index,  onClickOption}) => {
   const navigation=useNavigation()
   // console.warn(data)
   const [postTime, setPostTime] = useState('');

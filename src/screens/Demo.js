@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, Text, FlatList } from 'react-native';
 
-const Demo = () => {
+const Demo
+ = () => {
   // Color sequence
   const colors = ['red', 'blue', 'pink'];
   

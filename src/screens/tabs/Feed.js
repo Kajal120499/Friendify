@@ -3,14 +3,19 @@ import React, { useEffect, useState } from 'react'
 import Loader from '../../components/Loader'
 import { white, black, Theme_Color1, Theme_Color } from '../../utils/Color'
 import FeedItem from '../../components/FeedItem'
-import { Base_Url, Feeds } from '../../utils/String'
+import { Base_Url, Feeds, delete_post } from '../../utils/String'
 import { useIsFocused } from '@react-navigation/native'
 import { Images } from '../../utils/Images'
 import { scale } from 'react-native-size-matters'
+import OptionModal from '../../components/OptionModal'
 
 const Feed = () => {
   const [feed, setFeed] = useState([])
   const [loading, setLoading] = useState(false)
+  
+  const[openModal , setOpenModal] = useState(false)
+
+  const[selectedItem,setselectedItem]=useState(null)
 
   const isFocused = useIsFocused()
   useEffect(() => {
@@ -24,12 +29,30 @@ const Feed = () => {
       .then(json => {
         // console.warn(json.data)
         setLoading(false)
-        setFeed(json.data)
+        setFeed(json.data.reverse())
       })
       .catch(err => {
         setLoading(false)
         console.warn(err)
       })
+  }
+
+  const deletePost = () => {
+    const url = Base_Url + delete_post + '/'+ selectedItem._id
+    console.warn(url)
+    setLoading(true)
+    fetch(Base_Url+delete_post+'/'+selectedItem._id,{
+      method:'delete'
+    })
+    .then(res=>res.json())
+    .then(json=>{
+      console.warn("DEl:",json)
+      setLoading(false)
+      getPost()
+    }).catch(err=>{
+      console.log(err)
+      setLoading(false)
+    })
   }
 
   return (
@@ -42,9 +65,21 @@ const Feed = () => {
 
       <FlatList data={feed} style={{}} renderItem={({ item, index }) => {
         return (
-          <FeedItem data={item} list={feed} index={index} />
+          <FeedItem data={item} 
+                    list={feed} 
+                    index={index} 
+                    onClickOption={()=>{ setselectedItem(item)
+                                         setOpenModal(true)}}
+                    />
         )
       }} />
+
+      <OptionModal onclose={()=>{setOpenModal(false)}} onclick={x=>{
+                                                            setOpenModal(false);
+                                                            if(x==2){
+                                                              deletePost()
+                                                            }
+                                                            }} visible={openModal}/>
 
       <Loader visible={loading} />
 
