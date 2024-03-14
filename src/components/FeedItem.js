@@ -4,8 +4,28 @@ import { useNavigation } from '@react-navigation/native'
 import { Images } from '../utils/Images'
 import { black } from '../utils/Color'
 import { timeAgo } from './time'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
-const FeedItem = ({data,list,index,  onClickOption}) => {
+const FeedItem = ({data,list,index,  onClickOption,onclickLike}) => {
+  const[asyncGetData,setAsyncGetData]=useState([])
+
+  const getAsyncData=async()=>{
+    const getValue = await AsyncStorage.getItem("data")
+    const jsonConverter = JSON.parse(getValue)
+    console.warn("Feeed",jsonConverter._id)
+    setAsyncGetData(jsonConverter)
+    updatePost()
+  }
+
+  const checkLike=()=>{
+    let likePost = false
+    data.likes.map(item=>{
+      if(item == asyncGetData._id){
+        likePost = true
+      }
+    })
+    return likePost;
+  }
   const navigation=useNavigation()
   // console.warn(data)
   const [postTime, setPostTime] = useState('');
@@ -43,8 +63,8 @@ const FeedItem = ({data,list,index,  onClickOption}) => {
           }
 
           <View style={styles.bottomView}>
-            <TouchableOpacity style={{}} onPress={()=>{onClickLike()}}>
-            <Image source={Images.like} style={{width:24,height:24,marginLeft:10,tintColor:'red'}}/>
+            <TouchableOpacity style={{}} onPress={()=>{onclickLike()}}>
+            <Image source={checkLike()?Images.add:Images.heartfill} style={{width:24,height:24,marginLeft:10,tintColor:checkLike()?'red':'black'}}/>
             </TouchableOpacity>
             <TouchableOpacity onPress={()=>{navigation.navigate("Comments",{id:data._id})}}>
           <Image source={Images.comment} style={{width:24,height:24,marginLeft:20}}/>

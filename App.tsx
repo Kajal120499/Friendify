@@ -21,6 +21,7 @@ function App() {
         <Stack.Screen name="Register" component={Register}/>
         <Stack.Screen name="Dashboard" component={Dashboard} options={{headerShown:false}}/>
         <Stack.Screen name="AddPost" component={AddPost} options={{headerShown:false}}/>
+        {/* <Stack.Screen name="Comments" component={Comments} options={{headerShown:false}}/> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

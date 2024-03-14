@@ -20,14 +20,14 @@ const Dashboard = ({navigation}) => {
     const getValue=async()=>{
       var getData = await AsyncStorage.getItem('data')
       var jsonConvert =JSON.parse(getData)
-      // console.warn("===",jsonConvert._id)
+      //console.warn("===",jsonConvert._id)
     }
 
   return (
     <SafeAreaView style={styles.container}>
        {
         selectedTab==0?<Feed/>:selectedTab==1?<UserProfile/>:null
-      }
+       }
      
       <View style={styles.bottomNav}>
           <TouchableOpacity style={styles.bottomTab} onPress={()=>{setselectedTab(0)}}>

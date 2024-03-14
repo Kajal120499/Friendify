@@ -65,13 +65,14 @@ const AddPost = ({ navigation }) => {
             url = await storage().ref(imgData.assets[0].fileName).getDownloadURL();
         }
         let body = JSON.stringify({
-            "userId": logingetData._id,
+            "user": logingetData._id,
             "caption": caption,
-            "username": logingetData.username,
             "imageUrl":url
         })
         // console.warn("Body",body)
-        fetch(Base_Url + add_post, {
+        const urll = Base_Url + add_post
+        // console.warn(urll)
+        fetch(urll, {
             body:body,
             method:'post',
             headers: {
@@ -81,7 +82,7 @@ const AddPost = ({ navigation }) => {
          res=>res.json()).
          then(json=>{
             setLoading(false)
-            console.warn("Data",json)
+            console.log("Data",json)
             navigation.navigate("Dashboard")
         }).catch(err=>{
             setLoading(false)
